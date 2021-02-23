@@ -1,0 +1,37 @@
+This is a Python Script to parse Process Monitor evens (exported to a CSV file) and place them into a Neo4j Graphing database.
+**Please note, this is pretty slow and will take a while, expecially with large CSV files (It took about 9 minutes to parse 134,000 lines)
+
+This is written using Python 3.
+You will need to install Neo4j and the Python library for Neo4j.
+
+
+## To install the Python Neo4j Library:
+pip3 install neo4j
+
+
+## To install Neo4j on Ubuntu:
+apt-get install python3-pip
+sudo add-apt-repository -y ppa:openjdk-r/ppa
+sudo apt-get update
+
+wget -O - https://debian.neo4j.com/neotechnology.gpg.key | sudo apt-key add -
+echo 'deb https://debian.neo4j.com stable latest' | sudo tee -a /etc/apt/sources.list.d/neo4j.list
+sudo apt-get update
+
+
+sudo apt-get install neo4j=1:4.1.1
+sudo service neo4j start
+
+
+
+
+You will need to add your Neo4j username/password to the procmon.py script
+
+
+
+Interesting Commands
+This command will find Create File events where the Process contained <process name>
+MATCH p = (n:Process)-[:CreateFile]-() WHERE n.processName CONTAINS "<process name>" RETURN p
+
+This command will find Successful ReadFile attempts where the process name is <process name> and the path contains <pathname>
+MATCH p = (n:Process)-[:ReadFile {result:'SUCCESS'}]-(b:Path) WHERE n.processName CONTAINS "<process name>" AND b.path CONTAINS '<path name>' RETURN p
