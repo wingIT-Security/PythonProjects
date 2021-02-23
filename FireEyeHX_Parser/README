@@ -1,0 +1,33 @@
+
+# FireEye HX Parser for Neo4j
+
+This parser only works on Automatic Triage/Basic Triages.
+This is written using Python 3.
+You will need to install Neo4j and the Python library for Neo4j.
+
+
+## To install the Python Neo4j Library:
+pip3 install neo4j
+
+
+## To install Neo4j on Ubuntu:
+apt-get install python3-pip
+sudo add-apt-repository -y ppa:openjdk-r/ppa
+sudo apt-get update
+
+wget -O - https://debian.neo4j.com/neotechnology.gpg.key | sudo apt-key add -
+echo 'deb https://debian.neo4j.com stable latest' | sudo tee -a /etc/apt/sources.list.d/neo4j.list
+sudo apt-get update
+
+
+sudo apt-get install neo4j=1:4.1.1
+sudo service neo4j start
+
+
+
+
+You will need to add your Neo4j username/password to the hx_parse.py script
+
+
+
+This is still in development and has a few bugs. The parser will occassionally miss Network Events, I am not sure if this is a Python's XML parser or an issue with the XML itself. 
